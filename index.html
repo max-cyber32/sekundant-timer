@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учет рабочего времени</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-frame">
+        <!-- Шапка с кнопкой меню (три полоски сверху справа) -->
+        <header class="top-bar">
+            <span class="app-title">Смена</span>
+            <button id="menuBtn" class="burger-btn" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <!-- Главный чистый экран -->
+        <main class="main-screen">
+            <div class="timer-ring">
+                <div id="time">00:00:00</div>
+                <div class="current-earn">За смену: <span id="shiftMoney">0.00</span> грн</div>
+            </div>
+
+            <div class="controls">
+                <button id="startBtn" class="ios-btn primary">Старт</button>
+                <div class="secondary-controls">
+                    <button id="pauseBtn" class="ios-btn secondary" disabled>Пауза</button>
+                    <button id="stopBtn" class="ios-btn secondary" disabled>Завершить</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Затемнение фона при открытом меню -->
+        <div id="overlay" class="overlay"></div>
+
+        <!-- Выдвижное меню -->
+        <aside id="sideMenu" class="side-menu">
+            <div class="menu-header">
+                <h2>Меню</h2>
+                <button id="closeMenuBtn" class="close-btn">&times;</button>
+            </div>
+
+            <div class="menu-list">
+                <button id="openStatsBtn" class="menu-item">
+                    <span>📊 График и итоги по неделям</span>
+                    <span class="arrow">›</span>
+                </button>
+
+                <div class="menu-block">
+                    <label class="menu-label" for="hourlyRate">Ставка в час (грн)</label>
+                    <input type="number" id="hourlyRate" class="ios-input" value="150" min="0">
+                </div>
+
+                <div class="menu-block row-between">
+                    <span class="menu-label">Тема оформления</span>
+                    <button id="themeToggleBtn" class="ios-pill-btn">Светлая</button>
+                </div>
+
+                <div class="menu-block">
+                    <span class="menu-label">Цвет кнопок</span>
+                    <div class="color-presets" id="colorPresets">
+                        <button class="color-dot active" data-accent="#ff8fab" data-accent-hover="#ff7597" style="background: #ff8fab;" title="Нежно-розовый"></button>
+                        <button class="color-dot" data-accent="#ff5d8f" data-accent-hover="#ff407a" style="background: #ff5d8f;" title="Ярко-розовый"></button>
+                        <button class="color-dot" data-accent="#0a84ff" data-accent-hover="#0070e0" style="background: #0a84ff;" title="iOS Синий"></button>
+                        <button class="color-dot" data-accent="#bf5af2" data-accent-hover="#a83fe0" style="background: #bf5af2;" title="Фиолетовый"></button>
+                        <button class="color-dot" data-accent="#30d158" data-accent-hover="#24b84a" style="background: #30d158;" title="Зеленый"></button>
+                        <input type="color" id="customColorPicker" class="color-picker" value="#ff8fab" title="Свой цвет">
+                    </div>
+                </div>
+
+                <div class="menu-block">
+                    <button id="clearWeekBtn" class="ios-btn danger-soft">Очистить историю смен</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Экран/модалка «График и итоги по неделям» -->
+        <section id="statsModal" class="stats-modal">
+            <div class="modal-header">
+                <h2>График и итоги</h2>
+                <button id="closeStatsBtn" class="close-btn">&times;</button>
+            </div>
+
+            <div class="weeks-summary">
+                <div class="week-card">
+                    <span class="week-title">Эта неделя</span>
+                    <strong id="w0Hours">0.0 ч</strong>
+                    <small id="w0Money">0.00 грн</small>
+                </div>
+                <div class="week-card">
+                    <span class="week-title">Прошлая</span>
+                    <strong id="w1Hours">0.0 ч</strong>
+                    <small id="w1Money">0.00 грн</small>
+                </div>
+                <div class="week-card">
+                    <span class="week-title">Позапрошлая</span>
+                    <strong id="w2Hours">0.0 ч</strong>
+                    <small id="w2Money">0.00 грн</small>
+                </div>
+            </div>
+
+            <div class="chart-box">
+                <h3>Часы по дням (текущая неделя)</h3>
+                <div id="barChart" class="bar-chart"></div>
+            </div>
+
+            <div class="shifts-box">
+                <h3>Последние смены</h3>
+                <ul id="shiftsList" class="shifts-list"></ul>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
